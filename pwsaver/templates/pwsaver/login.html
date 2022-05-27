@@ -6,7 +6,7 @@
     </div>
 {% endif %}
 <h1 class="text-success my-5 text-center">Welcome To Our Credentials Saving App</h1>
-<form method="post" class="container p-5">
+<form method="post" class="container">
     {% csrf_token %}
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Username</label>
@@ -17,5 +17,7 @@
       <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
     </div>
     <button type="submit" class="btn btn-primary">Sign in</button>
-  </form>
+</form>
+<button type="submit" class="btn btn-danger float-end">Forgot Password?</button>
+  
 {% endblock %}
