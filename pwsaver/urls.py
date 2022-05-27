@@ -7,5 +7,6 @@ from .views import *
 urlpatterns = [
     path('',createCred,name='createCred'),
     path('get/',credenialList,name='credenialList'),
-    path('login/',userlogin,name='user-login')
+    path('login/',userlogin,name='user-login'),
+    path('logout/',userlogout,name='user-logout')
 ]
