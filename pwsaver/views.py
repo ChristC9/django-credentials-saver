@@ -1,29 +1,28 @@
-from django.shortcuts import render,redirect
-from .models import Credential
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
+
+from .models import Credential
+
 
 @login_required
 def createCred(request):
-
-    if request.user.is_authenticated:
-
-        if request.method == 'POST':
+    
+    if request.method == 'POST':
             
-            data = request.POST
-            account_type = data['account_type']
-            username = data['username']
-            password = data['password']
+        data = request.POST
+        account_type = data['account_type']
+        username = data['username']
+        password = data['password']
 
-            Credential.objects.create(
+        Credential.objects.create(
                 account_type = account_type,
                 username = username,
                 password = password
             )
-            return redirect('/get/')
-        return render(request,'pwsaver/credentialsform.html')
-    return redirect('login/')
+        return redirect('/get/')
+    return render(request,'pwsaver/credentialsform.html')
 
 @login_required
 def credenialList(request):
@@ -50,3 +49,8 @@ def userlogin(request):
             message = 'username or password incorrect Logged in failed'   
 
     return render(request,'pwsaver/login.html',{'message':message})
+
+def userlogout(request):
+
+    logout(request)
+    return redirect('/login/')
