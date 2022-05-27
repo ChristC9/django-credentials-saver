@@ -1,8 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
+from .forms import RegisterForm
 from .models import Credential
 
 
@@ -54,3 +54,18 @@ def userlogout(request):
 
     logout(request)
     return redirect('/login/')
+
+
+def userregister(request):
+
+    data = request.POST
+    form = RegisterForm(data)
+
+    if request.method == 'POST':
+            
+        if form.is_valid():
+            form.save()
+            return redirect('/login/')
+        else:
+            form = RegisterForm()
+    return render(request,'pwsaver/register.html',{'form':form})
