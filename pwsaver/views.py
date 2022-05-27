@@ -19,7 +19,8 @@ def createCred(request):
         Credential.objects.create(
                 account_type = account_type,
                 username = username,
-                password = password
+                password = password,
+                user = request.user
             )
         return redirect('/get/')
     return render(request,'pwsaver/credentialsform.html')
@@ -27,7 +28,7 @@ def createCred(request):
 @login_required
 def credenialList(request):
 
-    credential = Credential.objects.all()
+    credential = Credential.objects.filter(user=request.user)
     return render(request,'pwsaver/credentialsList.html',{'credentials':credential})
 
 
