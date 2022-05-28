@@ -60,10 +60,11 @@ def userlogout(request):
 def userregister(request):
 
     data = request.POST
-    form = RegisterForm(data)
+    form = RegisterForm()
 
     if request.method == 'POST':
-            
+        
+        form.data = data
         if form.is_valid():
             form.save()
             return redirect('/login/')

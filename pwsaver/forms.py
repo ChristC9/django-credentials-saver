@@ -14,7 +14,3 @@ class RegisterForm(UserCreationForm):
     def __init__(self, *args,**kwargs):
 
         super(RegisterForm,self).__init__(*args, **kwargs)
-        
-        # self.fields['username'].required = False
-        # self.fields['password1'].required = False
-        # self.fields['password2'].required = False
