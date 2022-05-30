@@ -4,7 +4,7 @@ from django import forms
 
 class RegisterForm(UserCreationForm):
     
-    email = forms.EmailField(max_length=20)
+    email = forms.EmailField(max_length=256,)
 
     class Meta:
         model = User
