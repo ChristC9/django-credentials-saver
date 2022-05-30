@@ -64,10 +64,9 @@ def userregister(request):
 
     if request.method == 'POST':
         
-        form.data = data
+        form = RegisterForm(data)
         if form.is_valid():
             form.save()
             return redirect('/login/')
-        else:
-            form = RegisterForm()
+            
     return render(request,'pwsaver/register.html',{'form':form})
