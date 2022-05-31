@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
+from django.contrib import messages
 
 from .forms import RegisterForm
 from .models import Credential
@@ -34,7 +35,6 @@ def credenialList(request):
 
 def userlogin(request):
 
-    message = None
     if request.method == 'POST':
 
         data = request.POST
@@ -44,12 +44,11 @@ def userlogin(request):
         user = authenticate(username=username,password=password)
         if user is not None:
             login(request,user)
-            message = f'You have been logged in'
             return redirect('/')
         else:
-            message = 'username or password incorrect Logged in failed'   
+            messages.error(request,'Invalid username or password',extra_tags='alert')
 
-    return render(request,'pwsaver/login.html',{'message':message})
+    return render(request,'pwsaver/login.html')
 
 def userlogout(request):
 
@@ -67,6 +66,8 @@ def userregister(request):
         form = RegisterForm(data)
         if form.is_valid():
             form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request,f'Your account, {username} is created successfully.')
             return redirect('/login/')
             
     return render(request,'pwsaver/register.html',{'form':form})
