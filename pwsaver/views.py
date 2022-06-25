@@ -44,7 +44,7 @@ def userlogin(request):
         user = authenticate(username=username,password=password)
         if user is not None:
             login(request,user)
-            return redirect('/')
+            return redirect('/get/')
         else:
             messages.error(request,'Invalid username or password',extra_tags='alert')
 
